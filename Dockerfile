@@ -13,8 +13,6 @@ RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /pocketbase .
 
 FROM alpine:3.20
 
-RUN apk add --no-cache ca-certificates
-
 WORKDIR /app
 
 COPY --from=build /pocketbase /app/pocketbase
