@@ -1,6 +1,8 @@
 # dokploy-test-pocketbase-app
 
-Minimal Go HTTP service for deployment testing (e.g. Dokploy).
+Minimal [PocketBase](https://pocketbase.io/) app embedded in Go, for deployment testing (e.g. Dokploy).
+
+Uses PocketBase [v0.22.34](https://github.com/pocketbase/pocketbase/releases/tag/v0.22.34), the latest release that still builds with Go 1.22.
 
 ## Requirements
 
@@ -9,19 +11,24 @@ Minimal Go HTTP service for deployment testing (e.g. Dokploy).
 ## Run locally
 
 ```bash
-go run .
+go run . serve
 ```
 
-The server listens on `:8080` by default. Set `ADDR` to override (for example `ADDR=:3000 go run .`).
+By default PocketBase listens on `http://127.0.0.1:8090`. Override the bind address with the `--http` flag, for example:
+
+```bash
+go run . serve --http=0.0.0.0:8080
+```
+
+Data is stored in `./pb_data` (created on first run).
 
 ## Build
 
 ```bash
-go build -o bin/server .
-./bin/server
+CGO_ENABLED=0 go build -o bin/pocketbase .
+./bin/pocketbase serve
 ```
 
-## Endpoints
+## Admin UI
 
-- `GET /` — returns `ok`
-- `GET /health` — health check (200, body `ok`)
+After the server starts, open the admin dashboard at `/_/`. On first run you will be prompted to create a superuser account.
