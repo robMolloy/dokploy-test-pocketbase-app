@@ -1,0 +1,7 @@
+/pocketbase
+/pb_data/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
