@@ -14,3 +14,10 @@
 
 # Dependency directories (optional)
 vendor/
+
+# PocketBase
+pb_data/
+pb_public/
+*.db
+*.db-shm
+*.db-wal

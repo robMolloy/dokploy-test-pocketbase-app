@@ -1,29 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"net/http"
-	"os"
+
+	"github.com/pocketbase/pocketbase"
 )
 
 func main() {
-	addr := os.Getenv("ADDR")
-	if addr == "" {
-		addr = ":8080"
-	}
+	app := pocketbase.New()
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "ok\n")
-	})
-	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, "ok")
-	})
-
-	log.Printf("listening on %s", addr)
-	if err := http.ListenAndServe(addr, mux); err != nil {
+	if err := app.Start(); err != nil {
 		log.Fatal(err)
 	}
 }
