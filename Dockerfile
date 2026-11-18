@@ -9,7 +9,8 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /pocketbase .
+ENV CGO_ENABLED=0
+RUN go build -o /pocketbase .
 
 FROM alpine:3.20
 
